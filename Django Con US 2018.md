@@ -1,5 +1,6 @@
 # Talks List
 - [Pseu, Pseu, Pseudio. Pseudonymization in Django](#pseu-pseu-pseudio-pseudonymization-in-django)
+- [Finally Understand Authentication in Django REST Framework by William S. Vincent](finally-understand-authentication-in-django-rest-framework-by-william-s-vincent)
 
 ------
 
@@ -47,3 +48,38 @@ https://www.youtube.com/watch?v=wRro4xv8n6k
 https://www.cuttlesoft.com/data-pseudonymization-in-django/
 
 ------
+
+# Finally Understand Authentication in Django REST Framework by William S. Vincent
+- https://wsvincent.com/
+- [Slides](https://docs.google.com/presentation/d/1elsMKIFDw1ZcCyeSn9kr7cwvwC7IQnnfAOsWiPN9t64/edit#slide=id.g409c6afe0e_0_15)
+
+## API (**A**pplication **P**rogramming **I**nterfaces)
+
+## Restfull APIs
+- Stateles
+- HTTP methods
+- Url endpoint
+- Json x Xml
+
+## Django + DRF
+
+## HTTP HyperText Transfer Protocol
+- client <-> server
+- CRUD
+- Codes
+
+### HTTP Anatomy
+- Start/Status line
+- Header
+- Body
+
+## Rest API Endpoint
+- BasicAuthentication
+- SessionAuthentication
+- TokenAuthentication
+- RemoteUserAuthentication
+
+## Json Web Tokens
+
+## DRFx
+https://github.com/wsvincent/drfx
