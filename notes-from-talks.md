@@ -1,4 +1,6 @@
-# Talks List
+# Django Con Europe 2018
+- [Protecting Personal Data with Django (because it's the law)](protecting-personal-data-with-django-because-it-s-the-law)
+# Django Con US 2018
 - [Pseu, Pseu, Pseudio. Pseudonymization in Django](#pseu-pseu-pseudio-pseudonymization-in-django)
 - [Finally Understand Authentication in Django REST Framework by William S. Vincent](finally-understand-authentication-in-django-rest-framework-by-william-s-vincent)
 
@@ -47,7 +49,6 @@ Permanent de -identification of a data set so no party will be able to identify 
 https://www.youtube.com/watch?v=wRro4xv8n6k
 https://www.cuttlesoft.com/data-pseudonymization-in-django/
 
-------
 
 # Finally Understand Authentication in Django REST Framework by William S. Vincent
 - https://wsvincent.com/
@@ -83,3 +84,20 @@ https://www.cuttlesoft.com/data-pseudonymization-in-django/
 
 ## DRFx
 https://github.com/wsvincent/drfx
+
+
+# Protecting Personal Data with Django (because it's the law)
+[link](https://www.youtube.com/watch?v=b6KEoNVKFxM)
+## GDPR
+### Terms
+    - Any information realting to an identified or identifiable natural person.
+### Rights
+    - Company must provide you the data they have about you. 
+    - Transparency, access, rectification, erasure (delete user on backup?), data portability, restriction of processing
+### Tasks
+    - By design and default: taking into the account the state of the art, the cost of implementation. (secure applications)
+        - Separate personal data completely
+        - Separate sensitive data
+        - Encrypt sensitive data
+        - Restrict access
+    - Erase
