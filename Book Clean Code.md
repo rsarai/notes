@@ -73,7 +73,13 @@ It’s not enough to write the code well. The code has to be kept clean over tim
 ## Chapter 2 - Meaningful Names
 
 ### Use Intention-Revealing Names
-The name of a variable, function, or class, should answer all the big questions. It should tell you why it exists, what it does, and how it is used. If a name requires a comment, then the name does not reveal its intent.
+The name of a variable, function, or class, should answer all the big questions. It should tell you:
+
+- **Why it exists**
+- **What it does**
+- **How it is used**
+
+If a name requires a comment, then the name does not reveal its intent.
 
 ```python
 # BAD
@@ -204,5 +210,8 @@ for (int j=0; j < NUMBER_OF_TASKS; j++) {
 ### Avoid Encodings
 We have enough encodings to deal with without adding more to our burden. Encoding type or scope information into names simply adds an extra burden of deciphering. It hardly seems reasonable to require each new employee to learn yet another encoding “language” in addition to learning the (usually considerable) body of code that they’ll be working in. It is an unnecessary mental burden when trying to solve a problem. Encoded names are seldom pronounceable and are easy to mis-type.
 
-#### Hungarian Notation
+1. Avoid Hungarian Notation
+2. Avoid Member Prefixes
+3. Avoid Naming Interfaces and Implementations with the prefixes/sufixes: `I`, `Imp`, etc.
+4. Avoid Mental Mapping
 
