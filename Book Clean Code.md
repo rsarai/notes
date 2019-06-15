@@ -214,4 +214,246 @@ We have enough encodings to deal with without adding more to our burden. Encodin
 2. Avoid Member Prefixes
 3. Avoid Naming Interfaces and Implementations with the prefixes/sufixes: `I`, `Imp`, etc.
 4. Avoid Mental Mapping
+    This is a problem with single-letter variable names. Certainly a loop counter may be named i or j or k (though never l !) if its scope is very small and no other names can conflict with it. This is because those single-letter names for loop counters are traditional.
+
+    However, in most other contexts a single-letter name is a poor choice; it’s just a place holder that the reader must mentally map to the actual concept.
+
+
+### Class Names
+Classes and objects should have noun or noun phrase liek: Customer, WikiPage, Account, AddressParser. Avoid words like: Manager, Processor, Data, Info in the name of a class.
+
+### Method Names
+Methods should have verb or verb phrase names like: postPayment, deletePage, save. Accessors, mutators and predicates should be named for their value and prefixed with get, set and is according to the standard.
+
+```java
+string name = employee.getName();
+customer.setName("mike");
+if (paycheck.isPosted())...
+```
+
+### Pick One Word per Concept
+Pick one word for one abstract concept and stick with it. For instance, it’s confusing to have fetch, retrieve, and get as equivalent methods of different classes. Likewise, it’s confusing to have a controller and a manager and a driver in the same code base.
+
+A consistent lexicon is a great boon to the programmers who must use your code.
+
+### Don't Pun
+Avoid using the same word for two purposes. Using the same term for two different ideas is essentially a pun.
+
+Eg: If you follow the “one word per concept” rule, you could end up with many classes
+that have, for example, an add method. As long as the parameter lists and return values of the various add methods are semantically equivalent, all is well. However one might decide to use the word add for “consistency” when he or she is not in fact adding in the same sense. Let’s say we have many classes where add will create a new value by adding or concatenating two existing values. Now let’s say we are writing a new class that has a method that puts its single parameter into a collection. Should we call this method add ? It might seem consistent because we have so many other add methods, but in this case, the semantics are different, so we should use a name like insert or append instead. To call the new method add would be a pun.
+
+### Use Solution Domain Names
+Remember that the people who read your code will be programmers. So go ahead and use computer science (CS) terms, algorithm names, pattern names, math terms, and so forth. It is not wise to draw every name from the problem domain because we don’t want our coworkers to have to run back and forth to the customer asking what every name means when they already know the concept by a different name.
+
+### Use Problem Domain Names
+When there is no “programmer-eese” for what you’re doing, use the name from the problem domain.
+
+### Add Meaningful Context
+Imagine that you have variables named firstName , lastName , street , houseNumber , city, state, and zipcode. Taken together it’s pretty clear that they form an address. But what if you just saw the state variable being used alone in a method? Would you automatically infer that it was part of an address? You can add context by using prefixes: addrFirstName , addrLastName , addrState , and so on. At least readers will understand that these variables are part of a larger structure. Of course, a better solution is to create a class named Address .
+
+### Don't Add Gratuitous Context
+In an imaginary application called “Gas Station Deluxe,” it is a bad idea to prefix every class with GSD. Shorter names are generally better than longer ones, so long as they are clear. Add no more context to a name than is necessary.
+
+If I need to differentiate between MAC addresses, port addresses, and Web addresses, I might consider PostalAddress , MAC , and URI . The resulting names are more precise which is the point of all naming.
+
+## Chapter 3 - Functions
+How can we make a function communicate its intent? What attributes can we give our functions that will allow a casual reader to intuit the kind of program they live inside?
+
+### Small
+- The first rule of functions is that they should be small.
+- The second rule of functions is that they should be smaller than that.
+
+**Functions should hardly ever be 20 lines long.**
+
+#### Blocks and Indenting
+This implies that the blocks within if statements, else statements, while statements,and so on **should be one line long**. Probably that line should be a **function call**. Not only does this keep the enclosing function small, but it also adds documentary value because the function called within the block can have a nicely **descriptive name**.
+
+This also implies that **functions should not be large enough to hold nested structures**. Therefore, the indent level of a function should not be greater than one or two. This, of course, makes the functions easier to read and understand.
+
+### Do One Thing
+> FUNCTIONS SHOULD DO ONE THING. THEY SHOULD DO IT WELL. THEY SHOULD DO IT ONLY.
+
+If a function does only those steps that are one level below the stated name of the function, then the function is doing one thing. After all, the reason we write functions is to decompose a larger concept (in other words, the name of the function) into a set of steps at the next level of abstraction.
+
+Another way to know that a function is doing more than “one thing” is if you can extract another function from it with a name that is not merely a restatement of its implementation.
+
+#### Sections within Functions
+If a function is divided into sections such as declarations, initializations, and sieve. This is an obvious symptom of doing more than one thing. Functions that do one thing cannot be reasonably divided into sections.
+
+### One  Level of Abstraction per Function
+In order to make sure our functions are doing “one thing,” we need to make sure that the statements within our function are all **at the same level of abstraction**. Mixing levels of abstraction within a function is always confusing. Readers may not be able to tell whether a particular expression is an **essential concept** or a **detail**. Worse, like broken windows, once details are mixed with essential concepts, more and more details tend to accrete within the function.
+
+#### Reading Code from Top to Bottom: _The Stepdown Rule_
+The code should be read like a top-down narrative. Every function should be followed by those at the next level of abstraction so that we can read the program descending one level of abstraction at a time as we read down the list of functions.
+
+To say this differently, we want to be able to read the program as though it were a set of _TO paragraphs_, each of which is describing the current level of abstraction and referencing subsequent _TO paragraphs_ at the next level down.
+
+Eg:
+- To include the setups and teardowns, we include setups, then we include the test page content, and then we include the teardowns.
+    - To include the setups, we include the suite setup if this is a suite, then we include the regular setup.
+        - To include the suite setup, we search the parent hierarchy for the “SuiteSetUp” page and add an include statement with the path of that page.
+            -To search the parent...
+
+### Switch Statements
+Even a switch statement with only two cases is larger than I’d like a single block or function to be. It’s also hard to make a switch statement that does one thing. By their nature, switch statements always do N things. Unfortunately we can’t always avoid switch statements, but we can make sure that each switch statement is buried in a low-level class and is never repeated. We do this, of course, with polymorphism.
+
+Consider:
+
+```java
+public Money calculatePay(Employee e) throws InvalidEmployeeType {
+    switch (e.type) {
+        case COMMISSIONED:
+            return calculateCommissionedPay(e);
+        case HOURLY:
+            return calculateHourlyPay(e);
+        case SALARIED:
+            return calculateSalariedPay(e);
+        default:
+            throw new InvalidEmployeeType(e.type);
+    }
+}
+```
+There are several problems with this function:
+- It's large, and when new employee types are added, it will grow;
+- Does more than one thing;
+- Violates the Single Responsability Principle (SRP) because there is more than one reason for it to change;
+- Violates the Open Closed Principle 8 (OCP) because it must change whenever new types are added;
+- Possibly the worst problem with this function is that there are an unlimited number of other functions that will have the same structure, like:
+
+```java
+isPayday(Employee e, Date date),
+// or
+deliverPay(Employee e, Money pay)
+```
+
+The solution to this problem is to bury the switch statement in the basement of an ABSTRACT FACTORY, and never let anyone see it. The factory will use the
+switch statement to create appropriate instances of the derivatives of Employee , and the various functions, such as calculatePay , isPayday , and deliverPay , will be dispatched polymorphically through the Employee interface.
+
+```java
+public abstract class Employee {
+    public abstract boolean isPayday();
+    public abstract Money calculatePay();
+    public abstract void deliverPay(Money pay);
+}
+-----------------
+public interface EmployeeFactory {
+    public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType;
+}
+-----------------
+public class EmployeeFactoryImpl implements EmployeeFactory {
+    public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType {
+        switch (r.type) {
+            case COMMISSIONED:
+                return new CommissionedEmployee(r) ;
+            case HOURLY:
+                return new HourlyEmployee(r);
+            case SALARIED:
+                return new SalariedEmploye(r);
+            default:
+                throw new InvalidEmployeeType(r.type);
+        }
+    }
+}
+```
+
+My general rule for switch statements is that they can be tolerated if they appear only once, are used to create polymorphic objects, and are hidden behind an inheritance relationship so that the rest of the system can’t see them.
+
+### Use Descriptive Names
+Remember Ward’s principle:
+> You know you are working on clean code when each routine turns out to be pretty much what you expected.
+
+The smaller and more focused a function is, the easier it is to choose a descriptive name. **Don’t be afraid to make a name long**. A long descriptive name is better than a short enigmatic name. A long descriptive name is better than a long descriptive comment.
+
+### Function Arguments
+The ideal number of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic).
+
+Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification — and then shouldn’t be used anyway.
+
+- Common Monadic Forms
+There are two very common reasons to pass a single argument into a function. You may be **asking a question about that argument**, as in _boolean fileExists(“MyFile”)_. Or you may be **operating on that argument, transforming it into something else and returning it**. For example, _InputStream fileOpen(“MyFile”)_ transforms a file name String into an InputStream return value.
+
+The overall program is meant to **interpret the function call as an event** and use the argument to **alter the state of the system**, for example, _void passwordAttemptFailedNtimes(int attempts)_. Use this form with care. It should be very clear to the reader that this is an event.
+
+Try to avoid any monadic functions that don’t follow these forms. If a function is going to transform its input argument, the transformation should appear as the return value. Indeed, _StringBuffer transform(StringBuffer in)_ is better than _void transform-(StringBuffer out)_, even if the implementation in the first case simply returns the input argument. At least it still follows the form of a transformation.
+
+- Flag Arguments
+Flag arguments are ugly. Passing a boolean into a function is a truly terrible practice. Loudly proclaiming that this function
+does more than one thing. It does one thing if the flag is true and another if the flag is false.
+
+- Dyadic Functions
+Dyads aren’t evil, and you will certainly have to write them. However, you should be aware that they come at a cost and should take advantage of what mechanims may be available to you to convert them into monads.
+
+There are times, of course, where two arguments are appropriate. For example, Point p = new Point(0,0) is perfectly reasonable, the two arguments in this case are ordered components of a single value!
+
+- Triads
+Functions that take three arguments are significantly harder to understand than dyads.
+
+- Argument Objects
+When a function seems to need more than two or three arguments, it is likely that some of those arguments ought to be wrapped into a class of their own. Consider, for example, the difference between the two following declarations:
+```
+Circle makeCircle(double x, double y, double radius);
+Circle makeCircle(Point center, double radius);
+```
+
+Reducing the number of arguments by creating objects out of them may seem like cheating, but it’s not. When groups of variables are passed together, the way x and y are in the example above, they are likely part of a concept that deserves a name of its own.
+
+- Argument Lists
+
+Sometimes we want to pass a variable number of arguments into a function. Consider, for example, the `String.format` method:
+```java
+String.format("%s worked %.2f hours.", name, hours);
+```
+
+If the variable arguments are all treated identically, as they are in the example above, then they are equivalent to a single argument of type `List`. By that reasoning, `String.format` isactually dyadic. Indeed, the declaration of `String.format` as shown below is clearly dyadic.
+
+```java
+public String format(String format, Object... args)
+```
+
+- Verbs and Keywords
+Choosing good names for a function can go a long way toward **explaining the intent of the function** and the **order and intent of the arguments**.
+
+### Have No Side Effects
+Side effects are lies. Your function promises to do one thing, but it also does other hidden things.
+
+Consider:
+
+```java
+public class UserValidator {
+    private Cryptographer cryptographer;
+    public boolean checkPassword(String userName, String password) {
+        User user = UserGateway.findByName(userName);
+        if (user != User.NULL) {
+            String codedPhrase = user.getPhraseEncodedByPassword();
+            String phrase = cryptographer.decrypt(codedPhrase, password);
+            if ("Valid Password".equals(phrase)) {
+                Session.initialize();
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+This function uses a standard algorithm to match a userName to a password . It returns true if they match and false if anything goes wrong. But it also has a side effect: `Session.initialize();`
+
+The name does not imply that it initializes the session. So a caller who believes what the name of the function says runs the risk of erasing the existing session data when he or she decides to check the validity of the user.
+
+If you must have a temporal coupling, you should make it clear in the name of the function.
+
+### Output Arguments
+If you have been programming for more than a few years, I’m sure you’ve done a double-take on an argument that was actually an output rather than an input. For example:
+
+`appendFooter(s);`
+
+Does this function append s as the footer to something? Or does it append some footer to s ? Is s an input or an output? It doesn’t take long to look at the function signature and see:
+
+```java
+public void appendFooter(StringBuffer report)
+```
+
+This clarifies the issue, but only at the expense of checking the declaration of the function. Anything that forces you to check the function signature is equivalent to a double-take. It’s a cognitive break and should be avoided.
+
+
+### Command Query Separation
 
