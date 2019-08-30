@@ -142,7 +142,7 @@ https://github.com/wsvincent/drfx
 
 ## ADRs (Architectural Decision Records)
 
-Michael Nygard develop this idea of documenting this decision along with the code in a lightweight manner.
+Michael Nygard develop this idea of documenting this decisions along with the code in a lightweight manner.
 
 _(Here David talks "bad" about wikis to prove that putting the documentation on the code is a good idea)_
 
@@ -180,3 +180,53 @@ Reference application baked in best practices. _(Seems like vinta's boilerplate)
 - https://adr.github.io/
 - https://github.com/joelparkerhenderson/architecture_decision_record
 - https://github.com/npryce/adr-tools
+
+
+# Apps, Algorithms and Abstractions: Decoding our Digital World
+[link](https://skillsmatter.com/skillscasts/11782-apps-algorithms-abstractions)
+
+Everything between sending and receiveing cat pics.
+
+- Cellphone Signal
+  - Radio Signals
+  - Using radio to transmit information e.g: tetris
+    - Interference on radio waves: Frequency modulation, amblitube modulation, phase modulation
+
+
+
+# Automating Code Quality: Next Level
+_Kyle Knapp_
+[link](https://www.youtube.com/watch?v=iKAaNaVpJFM&feature=youtu.be)
+
+## How to Automate
+- Checks
+  - flake8
+  - pylint
+  - coverage
+- Run on CI and CodeCov
+- Trigger or not PR
+
+## Benefits
+- Enforces quality
+- Improves efficiency
+- Protect developers from mistakes
+
+## Lesser-know tools
+- pydocstyle
+- doc8
+- mypy
+
+### mypy
+Static Type check
+Helps better document code and catch bugs
+
+### pylint
+Static code analysis tools
+    - Check coding standards
+    - Warns for stylng issues
+    - Checks for potential bugs
+    - Allows the creation of plugins
+
+## Documentation tools
+### pydocstyle
+...
