@@ -476,7 +476,7 @@ Abstract Pythons dictionaries are stunningly good. Over the years, many great id
 Pythons dictionaries are stunningly good. Over the years, many great ideas have combined together to produce the modern implementation in Python 3.6. This fun talk uses pictures and little.
 
 ## Content
-Python is built around dictionaries. Instaces has dictionaries behind them.
+Python is built around dictionaries. The various namespaces include globals, locals, module dictionaries, class dictionaries, instace dictionaries.
 
 ### Dictionry Size
 Version             Dict Size           Notes
@@ -529,8 +529,9 @@ def separate_chaining(n):
     buckets = [[] for i in range(n)]
     for pair in entries:
         key, value = pair
-        i = hash(key) % n
-        buckets[i].append(pair)
+        h = hash(key)
+        i = h % n
+        buckets[i].append((h, key, value))
     pprint(buckets)
 ```
 
@@ -571,7 +572,7 @@ Naive resizing is expensive because the hash values would need to be recomputed 
 This makes resizes very cheap, about one-fifth as fast as a list copy!
 
 ### Faster Matching
-When searching a bucket we need to know whether the target key is founf. We cold test whether `key == target_key`, but that can be slow because any object can define a complex `__eq__()` method.
+When searching a bucket we need to know whether the target key is found. We cold test whether `key == target_key`, but that can be slow because any object can define a complex `__eq__()` method.
 
 The solution is to have two fast early-outs:
 - If two variables point to the same object, they are deemed equal. We say "identity implies equality".
